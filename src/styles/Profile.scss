@@ -1,8 +1,35 @@
-.main {
-    padding: 20px;
-  }
-  
-  .bg-dark {
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .main.bg-dark {
     background-color: #12002b;
+    padding: 2rem;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
+  .profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: white;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .edit-button {
+      background-color: #00bc77;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  }
+}
