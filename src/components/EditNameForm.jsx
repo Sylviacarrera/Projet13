@@ -40,11 +40,16 @@ const EditNameForm = ({ currentFirstName, currentLastName, onSave, onCancel }) =
     onSave({ firstName, lastName });
   };
 
+  const handleCancel = () => {
+    setFirstName(currentFirstName);
+    setLastName(currentLastName);
+    onCancel();
+  };
+
   return (
     <div className="edit-name-form">
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Name</label>
+        <div className="inputs">
           <input
             type="text"
             value={firstName}
@@ -52,9 +57,6 @@ const EditNameForm = ({ currentFirstName, currentLastName, onSave, onCancel }) =
             onChange={handleFirstNameChange}
             style={{ color: isFirstNameEdited ? 'black' : 'gray' }}
           />
-        </div>
-        <div>
-          <label>Last Name</label>
           <input
             type="text"
             value={lastName}
@@ -65,7 +67,7 @@ const EditNameForm = ({ currentFirstName, currentLastName, onSave, onCancel }) =
         </div>
         <div className="buttons">
           <button type="submit">Save</button>
-          <button type="button" onClick={onCancel}>Cancel</button>
+          <button type="button" onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>

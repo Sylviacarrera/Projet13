@@ -11,6 +11,10 @@ const ProfileHeader = ({ name, onSaveName }) => {
     setIsEditing(false);
   };
 
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
+
   return (
     <div className="profile-header">
       <h1>Welcome back!</h1>
@@ -20,7 +24,7 @@ const ProfileHeader = ({ name, onSaveName }) => {
           currentFirstName={name.split(' ')[0]}
           currentLastName={name.split(' ')[1]}
           onSave={handleSave}
-          onCancel={() => setIsEditing(false)}
+          onCancel={handleCancel}
         />
       ) : (
         <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Name</button>

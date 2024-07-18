@@ -9,7 +9,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
-  const [name, setName] = useState('Captain America!');
+  const [name, setName] = useState('');
 
   useEffect(() => {
     if (token) {

@@ -4,41 +4,51 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 1rem 0;
+  text-align: center;
 
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    div {
+    .inputs {
+      display: flex;
+      gap: 1rem;
       margin-bottom: 1rem;
-
-      label {
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-      }
 
       input {
         padding: 0.5rem;
         border: 1px solid #ddd;
         border-radius: 5px;
-        width: 100%;
+        width: 150px;
+        text-align: center;
         color: gray;
       }
     }
 
     .buttons {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 1rem;
 
       button {
-        padding: 0.5rem 1rem;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        background-color: transparent;
+        color: black;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
 
         &:first-of-type {
           background: #00bc77;
           color: white;
+          width: 6rem;
         }
 
         &:last-of-type {
