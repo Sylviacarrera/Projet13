@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 import './styles/App.scss';
 
 const App = () => (
@@ -17,6 +18,7 @@ const App = () => (
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} /> {/* Route pour la page 404 */}
       </Routes>
       <Footer />
     </Router>
