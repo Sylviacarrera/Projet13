@@ -3,14 +3,14 @@
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 550px;
+  height: 300px;
   position: relative;
 }
 
 .hero-content {
   position: relative;
   top: 2rem;
-  width: 550px;
+  width: 200px;
   background: white;
   padding: 2rem;
   text-align: left;
@@ -31,8 +31,7 @@
 .features {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center the features */
 }
 
 @media (min-width: 920px) {
@@ -55,5 +54,45 @@
 
   .hero-content .text {
     font-size: 1.2rem;
+  }
+
+  .features {
+    flex-direction: row;
+  }
+}
+
+.feature-icon {
+  width: 100px;
+  border: 10px solid #00bc77;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.feature-item {
+  flex: 1;
+  padding: 2.5rem;
+  text-align: center; /* Center the text */
+}
+
+.feature-item-title {
+  color: #222;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .feature-item {
+    padding: 1rem; /* Reduce padding */
+    margin-bottom: 1rem; /* Add margin for spacing between items */
+  }
+
+  .feature-icon {
+    width: 50px; /* Reduce icon size */
+    padding: 0.5rem; /* Reduce padding */
+  }
+
+  .feature-item-title {
+    font-size: 1rem; /* Reduce title size */
   }
 }
