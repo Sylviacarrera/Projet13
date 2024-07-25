@@ -1,38 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileHeader from '../components/ProfileHeader';
 import TransactionSection from '../components/TransactionSection';
-import { getUserProfile, selectUser, selectToken, setUser } from '../features/user/userSlice';
+import { selectToken, setUser } from '../features/user/userSlice';
 import '../styles/Profile.scss';
+import { useNavigate } from 'react-router-dom';
+import { postUser } from '../features/user/userApi';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
-  const user = useSelector(selectUser);
-  const [name, setName] = useState('');
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (token) {
-      dispatch(getUserProfile(token));
+    if (!token) {
+      navigate('/sign-in')
     }
-  }, [token, dispatch]);
 
-  useEffect(() => {
-    if (user) {
-      setName(`${user.firstName} ${user.lastName}`);
-    }
-  }, [user]);
+    postUser(token)
+      .then(data => {
+        dispatch(setUser(data.body))
+      })
+  }, [token, navigate, dispatch]);
 
-  const handleSaveName = (newName) => {
-    const updatedUser = { ...user, ...newName };
-    dispatch(setUser(updatedUser));
-    setName(`${newName.firstName} ${newName.lastName}`);
-  };
 
   return (
     <div className="profile-page">
       <main className="main bg-dark">
-        <ProfileHeader name={name} onSaveName={handleSaveName} />
+        <ProfileHeader />
         <TransactionSection
           title="Argent Bank Checking (x8349)"
           amount="$1,570.79"

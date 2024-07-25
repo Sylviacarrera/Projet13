@@ -1,41 +1,27 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import EditNameForm from './EditNameForm';
 import '../styles/ProfileHeader.scss';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsEditing, selectUser, setIsEditing } from '../features/user/userSlice';
 
-const ProfileHeader = ({ name, onSaveName }) => {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleSave = (newName) => {
-    onSaveName(newName);
-    setIsEditing(false);
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-  };
+const ProfileHeader = () => {
+  // const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch()
+  const isEditing = useSelector(selectIsEditing)
+  const user = useSelector(selectUser)
 
   return (
     <div className="profile-header">
       <h1>Welcome back!</h1>
-      {!isEditing && <h2>{name}</h2>}
+      {!isEditing && <h2>{user?.firstName} {user?.lastName}</h2>}
       {isEditing ? (
-        <EditNameForm
-          currentFirstName={name.split(' ')[0]}
-          currentLastName={name.split(' ')[1]}
-          onSave={handleSave}
-          onCancel={handleCancel}
-        />
+        <EditNameForm />
       ) : (
-        <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Name</button>
+        <button className="edit-button" onClick={() => dispatch(setIsEditing(true))}>Edit Name</button>
       )}
     </div>
   );
 };
 
-ProfileHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  onSaveName: PropTypes.func.isRequired,
-};
 
 export default ProfileHeader;

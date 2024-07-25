@@ -1,50 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import '../styles/EditNameForm.scss';
+import { selectUser, setUser, setIsEditing, selectToken, selectIsEditing } from '../features/user/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { putUser } from '../features/user/userApi';
 
-const EditNameForm = ({ currentFirstName, currentLastName, onSave, onCancel }) => {
-  const [firstName, setFirstName] = useState(currentFirstName);
-  const [lastName, setLastName] = useState(currentLastName);
-  const [isFirstNameEdited, setIsFirstNameEdited] = useState(false);
-  const [isLastNameEdited, setIsLastNameEdited] = useState(false);
 
-  useEffect(() => {
-    setFirstName(currentFirstName);
-    setLastName(currentLastName);
-  }, [currentFirstName, currentLastName]);
+const EditNameForm = () => {
+  const dispatch = useDispatch()
+  const user = useSelector(selectUser)
+  const token = useSelector(selectToken)
+  const isEditing = useSelector(selectIsEditing)
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-  const handleFirstNameFocus = () => {
-    if (!isFirstNameEdited) {
-      setFirstName('');
-    }
-  };
-
-  const handleLastNameFocus = () => {
-    if (!isLastNameEdited) {
-      setLastName('');
-    }
-  };
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
-    setIsFirstNameEdited(true);
   };
 
   const handleLastNameChange = (e) => {
     setLastName(e.target.value);
-    setIsLastNameEdited(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ firstName, lastName });
+
+    putUser(token, { firstName, lastName })
+      .then(data => {
+        dispatch(setUser(data.body))
+      }).finally(() => {
+        dispatch(setIsEditing(false))
+      })
+
   };
 
-  const handleCancel = () => {
-    setFirstName(currentFirstName);
-    setLastName(currentLastName);
-    onCancel();
-  };
 
   return (
     <div className="edit-name-form">
@@ -53,32 +42,25 @@ const EditNameForm = ({ currentFirstName, currentLastName, onSave, onCancel }) =
           <input
             type="text"
             value={firstName}
-            onFocus={handleFirstNameFocus}
+            placeholder={user?.firstName}
             onChange={handleFirstNameChange}
-            style={{ color: isFirstNameEdited ? 'black' : 'gray' }}
+            style={{ color: isEditing ? 'black' : 'gray' }}
           />
           <input
             type="text"
             value={lastName}
-            onFocus={handleLastNameFocus}
+            placeholder={user?.lastName}
             onChange={handleLastNameChange}
-            style={{ color: isLastNameEdited ? 'black' : 'gray' }}
+            style={{ color: isEditing ? 'black' : 'gray' }}
           />
         </div>
         <div className="buttons">
           <button type="submit">Save</button>
-          <button type="button" onClick={handleCancel}>Cancel</button>
+          <button type="button" onClick={() => dispatch(setIsEditing(false))}>Cancel</button>
         </div>
       </form>
     </div>
   );
-};
-
-EditNameForm.propTypes = {
-  currentFirstName: PropTypes.string.isRequired,
-  currentLastName: PropTypes.string.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
 };
 
 export default EditNameForm;
