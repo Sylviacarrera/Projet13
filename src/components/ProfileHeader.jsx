@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import EditNameForm from './EditNameForm';
 import '../styles/ProfileHeader.scss';
 import { useSelector, useDispatch } from 'react-redux';

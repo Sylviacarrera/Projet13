@@ -1,5 +1,3 @@
-import React from 'react';
-
 const RememberMe = () => (
   <div className="input-remember">
     <input type="checkbox" id="remember-me" />

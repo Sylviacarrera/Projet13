@@ -1,5 +1,3 @@
-import React from 'react';
-
 const FeatureItem = ({ icon, title, text }) => (
   <div className="feature-item">
     <img src={icon} alt={`${title} Icon`} className="feature-icon" />

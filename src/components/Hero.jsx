@@ -1,4 +1,3 @@
-import React from 'react';
 import '../styles/Hero.scss';
 import heroImage from '../assets/img/bank-tree.jpeg';
 
